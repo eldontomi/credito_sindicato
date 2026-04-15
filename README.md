@@ -66,6 +66,15 @@ Run the frontend production build from `frontend/`:
 npm run build
 ```
 
+Deploy the built frontend to Cloudflare Workers from the repository root:
+
+```bash
+npx wrangler deploy
+```
+
+The Worker entrypoint is [worker/index.js](./worker/index.js) and the static
+asset directory is configured in [wrangler.jsonc](./wrangler.jsonc).
+
 ## Public API example
 
 ```bash

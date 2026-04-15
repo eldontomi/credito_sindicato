@@ -17,3 +17,4 @@ backend/src/*.egg-info/
 backend/src/**/*.egg-info/
 frontend/node_modules/
 frontend/dist/
+.wrangler/
