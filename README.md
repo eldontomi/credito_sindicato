@@ -75,6 +75,10 @@ npm run deploy
 The Worker entrypoint is [worker/index.js](./worker/index.js) and the static
 asset directory is configured in [wrangler.jsonc](./wrangler.jsonc).
 
+For production, configure the Worker environment variable `API_BASE_URL` to
+point at the deployed backend origin. The Worker proxies `/api/*` and
+`/healthz` to that backend so the frontend can use the same site origin.
+
 ## Public API example
 
 ```bash

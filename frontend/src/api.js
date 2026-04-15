@@ -1,8 +1,13 @@
-const DEFAULT_BASE_URL = "http://127.0.0.1:8000";
+const LOCAL_BASE_URL = "http://127.0.0.1:8000";
 
 function getApiBaseUrl() {
   const configured = import.meta.env.VITE_API_BASE_URL;
-  return configured && configured.length > 0 ? configured : DEFAULT_BASE_URL;
+  if (configured && configured.length > 0) {
+    return configured;
+  }
+
+  const { hostname, origin } = window.location;
+  return hostname === "127.0.0.1" || hostname === "localhost" ? LOCAL_BASE_URL : origin;
 }
 
 export async function simulateLoan(payload) {
@@ -33,4 +38,3 @@ export async function simulateLoan(payload) {
 
   return response.json();
 }
-
