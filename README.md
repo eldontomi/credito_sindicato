@@ -69,7 +69,7 @@ npm run build
 Deploy the built frontend to Cloudflare Workers from the repository root:
 
 ```bash
-npx wrangler deploy
+npm run deploy
 ```
 
 The Worker entrypoint is [worker/index.js](./worker/index.js) and the static
