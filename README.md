@@ -127,3 +127,21 @@ Key environment variables:
 - `LOG_LEVEL`
 
 Pricing constants live in [backend/config/pricing_params.yaml](./backend/config/pricing_params.yaml).
+
+## Public backend deployment
+
+The backend is set up for deployment as a Docker-based web service on Render via
+[render.yaml](./render.yaml).
+
+Recommended setup:
+
+1. In Render, create a new Blueprint and select this repository.
+2. Confirm the generated service `credito-sindicato-backend`.
+3. Deploy it and wait for the health check on `/healthz` to pass.
+4. Copy the resulting public backend URL, such as
+   `https://credito-sindicato-backend.onrender.com`.
+5. In Cloudflare, set the Worker variable `API_BASE_URL` to that backend URL.
+6. Redeploy the Worker so `jabuticaba.ai/api/*` proxies to the public backend.
+
+If you prefer to create the service manually instead of using the Blueprint,
+point Render at `backend/Dockerfile` with build context `backend/`.
