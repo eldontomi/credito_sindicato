@@ -1,5 +1,5 @@
 {
-  "name": "credito-sindicato",
+  "name": "creditosindicato",
   "main": "worker/index.js",
   "compatibility_date": "2026-04-15",
   "assets": {
