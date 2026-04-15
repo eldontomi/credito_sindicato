@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador de Crédito Sindical</title>
+    <meta
+      name="description"
+      content="Simule seu crédito CCB com CET, IOF, valor total e cronograma completo de pagamentos."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="/src/simulator.js"></script>
+  </head>
+  <body data-page="simulator">
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brandmark" href="/">
+          <img src="/src/assets/logo.svg" alt="Crédito Sindicato" />
+        </a>
+        <nav class="site-nav" aria-label="Principal">
+          <a href="#simulador">Simulador</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="/faq.html">Perguntas frequentes</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="hero-copy-main">
+              <p class="eyebrow">Portal de crédito</p>
+              <h1>Simule seu CCB com clareza antes de contratar.</h1>
+              <p class="hero-text">
+                Veja taxa nominal, CET, IOF, valor total da dívida e o cronograma completo
+                de pagamentos em poucos segundos.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="simulator-layout" id="simulador">
+          <section class="control-panel card">
+            <div class="section-heading">
+              <p class="eyebrow">Parâmetros</p>
+              <h2>Monte a simulação</h2>
+            </div>
+
+            <form id="simulatorForm" class="simulator-form">
+              <label class="field-group" for="amount">
+                <span class="field-label">Quanto você quer contratar?</span>
+                <div class="currency-input">
+                  <span>R$</span>
+                  <input id="amount" name="amount" type="number" min="1000" max="1000000" step="100" value="45000" />
+                </div>
+                <input id="amountRange" type="range" min="1000" max="1000000" step="100" value="45000" />
+              </label>
+
+              <fieldset class="pill-group">
+                <legend class="field-label">Prazo (meses)</legend>
+                <div class="pill-row pill-row--tenor" id="tenorGroup">
+                  <label class="pill">
+                    <input type="radio" name="tenor" value="12" />
+                    <span>12</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="tenor" value="18" />
+                    <span>18</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="tenor" value="24" checked />
+                    <span>24</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="tenor" value="30" />
+                    <span>30</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="tenor" value="36" />
+                    <span>36</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="pill-group" id="interestPaymentGroup">
+                <legend class="field-label">Pagamento de juros</legend>
+                <div class="pill-row pill-row--dual">
+                  <label class="pill">
+                    <input type="radio" name="interest_payment" value="coupon" />
+                    <span>Coupon</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="interest_payment" value="bullet" checked />
+                    <span>Bullet</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <fieldset class="pill-group" id="parcelaFrequencyGroup">
+                <legend class="field-label">Frequência de pagamento</legend>
+                <div class="pill-row pill-row--frequency">
+                  <label class="pill">
+                    <input type="radio" name="parcela_frequency" value="monthly" checked />
+                    <span>Mensal</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="parcela_frequency" value="quarterly" />
+                    <span>Trimestral</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="parcela_frequency" value="semiannual" />
+                    <span>Semestral</span>
+                  </label>
+                  <label class="pill">
+                    <input type="radio" name="parcela_frequency" value="annual" />
+                    <span>Anual</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <div class="field-grid">
+                <label class="field-group" for="amortizationMethod">
+                  <span class="field-label">Método de amortização</span>
+                  <select id="amortizationMethod" name="amortization_method">
+                    <option value="bullet_with_coupons" selected>Bullet com cupons</option>
+                    <option value="tabela_price">Tabela Price</option>
+                  </select>
+                </label>
+
+                <label class="field-group" for="state">
+                  <span class="field-label">Estado</span>
+                  <select id="state" name="state">
+                    <option value="SP" selected>São Paulo</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                  </select>
+                </label>
+
+                <label class="field-group" for="disbursementDate">
+                  <span class="field-label">Data de desembolso</span>
+                  <input id="disbursementDate" name="disbursement_date" type="date" value="2026-03-31" />
+                </label>
+              </div>
+
+              <aside class="hero-strip hero-strip--inline">
+                <p class="hero-panel-label">Prévia do cenário padrão</p>
+                <div class="hero-panel-grid">
+                  <div>
+                    <span class="hero-metric-label">Solicitado</span>
+                    <strong id="heroPrincipal">R$ 45.000,00</strong>
+                  </div>
+                  <div>
+                    <span class="hero-metric-label">Prazo</span>
+                    <strong id="heroTenor">24 meses</strong>
+                  </div>
+                  <div>
+                    <span class="hero-metric-label">Estrutura</span>
+                    <strong id="heroMode">Bullet</strong>
+                  </div>
+                  <div>
+                    <span class="hero-metric-label">Parcela final</span>
+                    <strong id="heroTotalPaid">R$ 83.216,45</strong>
+                  </div>
+                </div>
+              </aside>
+            </form>
+          </section>
+
+          <section class="results-panel card" aria-live="polite">
+            <div class="section-heading">
+              <p class="eyebrow">Resultado</p>
+              <h2>Resumo da proposta</h2>
+            </div>
+
+            <div class="status-banner" id="statusBanner">Pronto para simular.</div>
+
+            <div class="metric-grid">
+              <article class="metric-card metric-card--highlight">
+                <span class="metric-label">CET anual</span>
+                <strong id="cetPa">35,93%</strong>
+                <small id="cetPm">2,59% ao mês</small>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">Taxa nominal</span>
+                <strong id="nominalPa">29,69%</strong>
+                <small id="nominalPm">2,19% ao mês</small>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">IOF</span>
+                <strong id="iofValue">R$ 1.570,83</strong>
+                <small>Financiado na operação</small>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">Taxas</span>
+                <strong id="feesValue">R$ 2.902,50</strong>
+                <small>Honorários, BT e emissão</small>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">Dívida total</span>
+                <strong id="totalDebt">R$ 49.473,33</strong>
+                <small>Valor de face da CCB</small>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">Total pago</span>
+                <strong id="totalPaid">R$ 83.216,45</strong>
+                <small id="interestTotal">Juros totais: R$ 38.216,45</small>
+              </article>
+            </div>
+
+            <div class="schedule-block">
+              <div class="schedule-head">
+                <div>
+                  <p class="eyebrow">Cronograma</p>
+                  <h3>Tabela de pagamentos</h3>
+                </div>
+                <button class="ghost-button" id="toggleSchedule" type="button">
+                  Recolher tabela
+                </button>
+              </div>
+              <div class="table-wrap" id="scheduleWrap">
+                <table class="schedule-table">
+                  <thead>
+                    <tr>
+                      <th>Mês</th>
+                      <th>Data</th>
+                      <th>Juros</th>
+                      <th>Pagamento juros</th>
+                      <th>Principal</th>
+                      <th>Saldo final</th>
+                      <th>Fluxo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="scheduleBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="info-grid" id="como-funciona">
+          <article class="info-card">
+            <p class="eyebrow">Transparência</p>
+            <h3>CET em primeiro plano</h3>
+            <p>
+              A taxa nominal aparece, mas o custo total efetivo recebe mais destaque para
+              evitar leituras incompletas da operação.
+            </p>
+          </article>
+          <article class="info-card">
+            <p class="eyebrow">Estrutura</p>
+            <h3>Dois modos de amortização</h3>
+            <p>
+              O simulador suporta o fluxo da planilha original e a Tabela Price, já
+              preparada para a decisão final de produto.
+            </p>
+          </article>
+          <article class="info-card">
+            <p class="eyebrow">Detalhe</p>
+            <h3>Cronograma completo</h3>
+            <p>
+              Cada linha mostra data, juros, principal, saldo final e fluxo para o
+              tomador, sem esconder o balloon de vencimento.
+            </p>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+  </html>

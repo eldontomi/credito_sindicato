@@ -1,0 +1,41 @@
+rates:
+  base_pa: 0.267
+  ceiling_pa: 0.3358215201675907
+  weights:
+    payment_dim: 0.60
+    parcela_dim: 0.30
+    tenor_dim: 0.10
+
+switches:
+  interest_payment:
+    coupon: 1
+    bullet: 2
+  parcela_frequency:
+    monthly: 1
+    quarterly: 2
+    semiannual: 3
+    annual: 4
+  tenor_months:
+    12: 1
+    18: 2
+    24: 3
+    30: 4
+    36: 5
+
+scaling_divisors:
+  payment_dim: 4
+  parcela_dim: 4
+  tenor_dim: 5
+
+fees:
+  lawyer_origination_pct: 0.03
+  bt_closing_pct: 0.03
+  bank_issuance_pct_flat: 0.0045
+  bank_issuance_min_brl: 0
+  escrow_opening_brl: 0
+  escrow_monthly_brl: 68
+  rtd_register_brl: 0
+
+taxes:
+  iof_total_pct: 0.03373
+
